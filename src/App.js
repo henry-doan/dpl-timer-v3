@@ -1,18 +1,23 @@
 import { useState } from 'react';
 
 const App = () => {
-  let countdown;
   const [timerDisplay, setTimerDisplay] = useState(null)
   const [endTime, setEndTime] = useState(null)
   const [mins, setMins] = useState(null)
+  
   // const timerDisplay = document.querySelector('.display__time-left');
   // const endTime = document.querySelector('.display__end-time');
   // const buttons = document.querySelectorAll('[data-time]');
-
+  
   const timer = (seconds) => {
+    let countdown;
     clearInterval(countdown);
-
+    countdown = undefined;
+    // setTimerDisplay(null)
+    // setEndTime(null)
+    
     const now = Date.now();
+    let nowTime = Math.round(new Date().getTime() / 1000)
     const then = now + seconds * 1000;
     displayTimeLeft(seconds);
     displayEndTime(then);
@@ -27,6 +32,7 @@ const App = () => {
 
       displayTimeLeft(secondsLeft);
     }, 1000);
+    // clearInterval(countdown);
   }
 
   const displayTimeLeft = (seconds) => {
@@ -44,6 +50,8 @@ const App = () => {
     const min = end.getMinutes();
     setEndTime(`Be Back At ${adjustedHour}:${min < 10 ? '0' : ''}${min}`);
   }
+
+
 
   // const startTimer = () => {
   //   const seconds = parseInt(this.dataset.time);
@@ -73,12 +81,16 @@ const App = () => {
       <div>
         <div>
           <button
-            onClick={() => timer(300)}
+            onClick={() => {
+              timer(300)
+            }}
           >
             Take 5
           </button>
           <button 
-            onClick={() => timer(600)}
+            onClick={() => {
+              timer(600)
+            }}
           >
             Break 10
           </button>
