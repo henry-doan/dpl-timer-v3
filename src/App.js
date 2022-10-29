@@ -4,6 +4,7 @@ const App = () => {
   const [timerDisplay, setTimerDisplay] = useState(null)
   const [endTime, setEndTime] = useState(null)
   const [mins, setMins] = useState(null)
+  const [prevTimer, setPrevTimer] = useState(null);
   
   // const timerDisplay = document.querySelector('.display__time-left');
   // const endTime = document.querySelector('.display__end-time');
@@ -21,9 +22,11 @@ const App = () => {
     const then = now + seconds * 1000;
     displayTimeLeft(seconds);
     displayEndTime(then);
+    clearInterval(prevTimer);
 
     countdown = setInterval(() => {
       const secondsLeft = Math.round((then - Date.now()) / 1000);
+      setPrevTimer(countdown)
 
       if (secondsLeft < 0) {
         clearInterval(countdown);
