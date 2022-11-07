@@ -3,8 +3,11 @@ import Moment from 'react-moment';
 
 const App = () => {
   const [timerDisplay, setTimerDisplay] = useState(null)
-  const [endTime, setEndTime] = useState(null)
-  const [pacficendTime, setPacificEndTime] = useState(null)
+  const [mtnEndTime, setMtnEndTime] = useState(null)
+  const [pacficEndTime, setPacificEndTime] = useState(null)
+  const [easternEndTime, setEasternEndTime] = useState(null)
+  const [centralEndTime, setCentralEndTime] = useState(null)
+  const [alaskaEndTime, setAlaskaEndTime] = useState(null)
   const [mins, setMins] = useState(null)
   const [prevTimer, setPrevTimer] = useState(null);
   
@@ -13,13 +16,12 @@ const App = () => {
     clearInterval(countdown);
     countdown = undefined;
     setTimerDisplay(null)
-    setEndTime(null)
+    setMtnEndTime(null)
     
     const now = Date.now();
     const then = now + seconds * 1000;
     displayTimeLeft(seconds);
     displayEndTime(then);
-    displayPacificEndTime(then);
     clearInterval(prevTimer);
 
     countdown = setInterval(() => {
@@ -49,18 +51,11 @@ const App = () => {
     const adjustedHour = hour > 12 ? hour - 12 : hour;
     const min = end.getMinutes();
     
-    setEndTime(`Be Back At ${adjustedHour}:${min < 10 ? '0' : ''}${min}`);
-    // setEndTime(end);
-  }
-
-  const displayPacificEndTime = (timestamp) => {
-    const end = new Date(timestamp);
-    const hour = end.getHours();
-    const adjustedHour = hour > 12 ? hour - 12 : hour;
-    const min = end.getMinutes();
-    
     setPacificEndTime(`${adjustedHour - 1}:${min < 10 ? '0' : ''}${min} Pacific`);
-    // setEndTime(end);
+    setAlaskaEndTime(`${adjustedHour - 2}:${min < 10 ? '0' : ''}${min} Alaska`);
+    setMtnEndTime(`Be Back At ${adjustedHour}:${min < 10 ? '0' : ''}${min} Mountain`);
+    setCentralEndTime(`${adjustedHour + 1}:${min < 10 ? '0' : ''}${min} Central`);
+    setEasternEndTime(`${adjustedHour + 2}:${min < 10 ? '0' : ''}${min} Eastern`);
   }
 
   const handleSubmit = (e) => {
@@ -114,8 +109,11 @@ const App = () => {
             {timerDisplay}
           </h1>
           <p>
-            {endTime}
-            {pacficendTime}
+            {pacficEndTime} <br />
+            {alaskaEndTime} <br />
+            {mtnEndTime} <br />
+            {centralEndTime} <br />
+            {easternEndTime}
           </p>
         </div>
       </div>
